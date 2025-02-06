@@ -1,0 +1,154 @@
+/* General Styling */
+body {
+  background-color: #F1EFE7; /* Refined Ivory */
+  font-family: 'Lora', serif;
+  text-align: center;
+  margin: 0;
+}
+
+/* Soft Overlay Effect */
+.overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 40px;
+  font-family: 'Playfair Display', serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.bg-heading {
+  font-size: 80px; /* Increased for better visibility */
+  font-weight: 900; /* Extra bold for a royal feel */
+  color: gold; /* Matches theme */
+  text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5); /* Adds a shadow for depth */
+  font-family: 'Cinzel Decorative', serif; /* Royal and elegant */
+  text-align: center;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+/* Decorative Stickers */
+.sticker {
+  position: absolute;
+  width: 70px;
+}
+
+.heart-top {
+  top: 20px;
+  left: 20px;
+}
+
+.ring-bottom {
+  bottom: 20px;
+  right: 20px;
+}
+
+/* Card Layout */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+/* Different Card Sizes */
+.card-md { width: 320px; height: 380px; }
+.card-sm { width: 280px; height: 340px; }
+
+/* Anniversary Cards */
+.card {
+  background: #FFFFFF; /* Pure White */
+  padding: 20px;
+  border: 3px solid gold;
+  box-shadow: 8px 12px 25px rgba(0, 0, 0, 0.6);
+  font-family: 'Playfair Display', serif;
+  cursor: grab;
+  position: absolute;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Special Card (Main Photo) */
+.special-card {
+  border: 4px solid black; /* Black Highlight */
+}
+
+/* Card Hover Effect */
+.card:hover {
+  transform: scale(1.07);
+  box-shadow: 10px 15px 30px rgba(0, 0, 0, 0.7);
+}
+
+/* Card Image Styling */
+.card img {
+  max-width: 100%;
+  border: 2px solid gold;
+  margin-top: 10px;
+}
+
+/* Title & Subtitles */
+.title {
+  font-size: 24px;
+  color: #8B0000; /* Deep Red */
+  font-weight: bold;
+  font-family: 'Lora', serif;
+}
+
+.subtitle {
+  font-size: 20px;
+  color: black; /* Black Highlight */
+  font-style: italic;
+}
+/* 🎊 Confetti Styling */
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 15px;
+  background: gold;
+  opacity: 0.8;
+  border-radius: 50%;
+  animation: fall linear infinite;
+}
+
+.confetti:nth-child(odd) {
+  background: crimson;
+}
+
+.confetti:nth-child(even) {
+  background: white;
+}
+
+@keyframes fall {
+  from {
+      transform: translateY(-100vh) rotate(0deg);
+  }
+  to {
+      transform: translateY(100vh) rotate(360deg);
+  }
+}
+/* Footer */
+footer {
+  margin-top: 50px;
+  font-size: 20px;
+  font-family: 'Great Vibes', cursive;
+  color: black;
+}
