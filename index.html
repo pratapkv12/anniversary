@@ -4,50 +4,191 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy 20th Anniversary!</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Short+Stack&family=Homemade+Apple&display=swap">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Short+Stack&family=Homemade+Apple&family=Zeyada&display=swap">
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: url('bg.jpeg') no-repeat center center/cover;
+            overflow: hidden;
+            font-family: 'Short Stack', cursive;
+            position: relative;
+        }
+
+        header, footer {
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background: crimson;
+            color: white;
+            font-size: 1.5rem;
+            position: fixed;
+        }
+
+        header { top: 0; }
+        footer { bottom: 0; }
+
+        #intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 9999;
+            animation: fadeOut 18s ease-in-out forwards;
+        }
+
+        .intro-text {
+            font-size: 3.5rem;
+            color: gold;
+            text-shadow: 3px 3px 6px rgba(255, 255, 255, 0.6);
+            text-align: center;
+            animation: fadeIn 8s ease-in-out;
+        }
+
+        .message {
+            position: absolute;
+            font-size: 3rem;
+            color: rgba(255, 99, 71, 0.7);
+            text-align: center;
+            z-index: -1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .paper {
+            width: 200px;
+            height: 250px;
+            background: url('paper.webp') no-repeat center center/cover;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            cursor: grab;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .paper img {
+            width: 100%;
+            height: 180px;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; display: none; }
+        }
+
+        @keyframes fall {
+            from { transform: translateY(-10vh) rotate(0deg); }
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
+    <header>Happy 20th Anniversary Celebration</header>
+    
     <div id="intro">
         <h1 class="intro-text">HAPPY ANNIVERSARY MOM AND DAD</h1>
-        <div id="intro-confetti"></div>
+        <p class="intro-text">Have a great one this year ~ Pratap and Thaman</p>
     </div>
-    <div class="background-text">Congratulations on Your 20th!</div>
-    <div class="stickers">
-        <img src="stickers/heart.png" class="sticker heart">
-        <img src="stickers/cake.png" class="sticker cake">
-    </div>
-    <div class="paper heart"></div>
     
-    <div class="paper image">
-        <p>Happy 20th Anniversary! ❤️</p>
-        <img src="images/1.jpeg" />
-    </div>
+    <h1 class="message">Happy 20th Anniversary Mom and Dad</h1>
 
-    <div class="paper image">
-        <p>Thank you for your endless love! 💖</p>
-        <img src="images/2.jpeg" />
-    </div>
+    <div id="card-container"></div>
 
-    <div class="paper image">
-        <p>You're my inspiration! 🌟</p>
-        <img src="images/3.jpg" />
-    </div>
+    <footer>With Love, Pratap and Thaman</footer>
 
-    <div class="paper red">
-        <p class="p1">Wishing you happiness forever! 💕</p>
-    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(() => {
+                document.getElementById("intro").style.display = "none";
+            }, 18000);
+        });
 
-    <div class="paper">
-        <p class="p1">You are the best parents ever! ❤️</p>
-    </div>
+        const images = ["img1.jpg", "img2.jpg", "img3.jpg", "img4.jpg", "img5.jpg", "img6.jpg", "img7.jpg"];
+        const texts = ["Happy 20th Anniversary! ❤️", "Thank you for your endless love! 💖", "You're my inspiration! 🌟", "Always together! 💑", "Love never fades! 💕", "Best parents ever! 💝", "Here's to many more! 🎉"];
+        
+        const cardContainer = document.getElementById("card-container");
+        let highestZ = 1;
+        let movedCards = 0;
+        
+        images.forEach((img, index) => {
+            let paper = document.createElement("div");
+            paper.classList.add("paper");
+            paper.innerHTML = `<p>${texts[index]}</p><img src="${img}" />`;
+            paper.style.top = `${Math.random() * 40 + 20}%`;
+            paper.style.left = `${Math.random() * 50 + 25}%`;
+            paper.style.zIndex = highestZ++;
+            
+            let offsetX, offsetY, isDragging = false;
+            
+            paper.addEventListener("mousedown", (e) => {
+                isDragging = true;
+                offsetX = e.clientX - paper.offsetLeft;
+                offsetY = e.clientY - paper.offsetTop;
+                paper.style.zIndex = highestZ++;
+            });
+            
+            document.addEventListener("mousemove", (e) => {
+                if (isDragging) {
+                    paper.style.left = `${e.clientX - offsetX}px`;
+                    paper.style.top = `${e.clientY - offsetY}px`;
+                }
+            });
+            
+            document.addEventListener("mouseup", () => {
+                if (isDragging) {
+                    isDragging = false;
+                    movedCards++;
+                    if (movedCards === images.length) {
+                        showConfetti();
+                    }
+                }
+            });
+            
+            cardContainer.appendChild(paper);
+        });
 
-    <div class="paper">
-        <p class="p1">Drag the papers to move!</p>
-    </div>
-        <h2>20 Years of Love & Togetherness! 🎉</h2>
-    </div>
-    <script src="script.js"></script>
-
+        function showConfetti() {
+            const confettiColors = ["blue", "red", "white", "pink"];
+            for (let i = 0; i < 150; i++) {
+                let confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+                confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                confetti.style.animationDelay = `${Math.random() * 2}s`;
+                document.body.appendChild(confetti);
+            }
+            setTimeout(() => {
+                document.querySelectorAll(".confetti").forEach(el => el.remove());
+            }, 20000);
+        }
+    </script>
 </body>
 </html>
